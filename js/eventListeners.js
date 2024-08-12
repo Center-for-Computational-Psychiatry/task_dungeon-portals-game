@@ -1,17 +1,18 @@
-// function handleKeyPress(e) {
-//     if (e.key === 'Enter') {
-//         game.currentScreen++;
-//         if (game.currentScreen <= game.screens);
-//             game.displayInstructions();
-//     } else {
-//         game.gameStarted = true;
-//         game.startGame();
-//     }
-// };
-// window.addEventListener('keydown', (e) => this.handleKeyPress(e));
+function handleInstructionKeys(e) {
+    if (e.key === 'Enter') {
+        currentScreen++;
+        if (currentScreen <= totalScreens);
+            displayInstructions();
+    } else {
+        gameStarted = true;
+        startGame();
+    }
+};
+window.addEventListener('keydown', (e) => this.handleInstructionKeys(e));
 
 window.addEventListener('keydown', (event) => {
-    if (player.preventInput) return
+    if (!gameStarted || player.preventInput) return;
+    // if (player.preventInput) return
     switch (event.key) {
         case 'ArrowLeft':
             keys.ArrowLeft.pressed = true

@@ -27,10 +27,71 @@ const keys = {
     ArrowRight: { pressed: false },
     ArrowUp: { pressed: false }
 }
-// let switchingWorlds = false // this is to manage timing of switchingsprites: emerging animation
 
-maps[level].init();
-animate();
+let currentScreen = 0 // keeps track of instruction screen to display
+const totalScreens = 3 // total number of instruction screens
+let gameStarted = false
+displayInstructions()
+
+
+function displayInstructions() {
+    // Clear the canvas before displaying instructions
+    c.clearRect(0, 0, canvas.width, canvas.height);
+    c.fillStyle = 'midnightblue';
+    c.textAlign = 'center';
+    
+    // Title
+    // c.font = '30px Arial';
+    // c.fillText('Portal Teleportation Game', canvas.width / 2, 100);
+    
+    // Instructions text based on the current screen
+    if (currentScreen === 0) {
+        c.font = '24px Arial';
+        c.fillText('Welcome to the Dungeon Portal Game!', canvas.width / 2, 180);
+        c.fillText('Teleport through portals to explore different platforms in a dungeon.', canvas.width / 2, 230);
+        c.fillText('Find a way to escape each dungeon.', canvas.width / 2, 260);
+        c.fillText('You will earn money based on how many points you earn in this game.', canvas.width / 2, 290);
+        c.fillText('Press ENTER to continue.', canvas.width / 2, 340);
+    } else if (currentScreen === 1) {
+        c.font = '24px Arial';
+        c.fillText('GAME INSTRUCTIONS:', canvas.width / 2, 160);
+        c.fillText('Win and lose points from entering and exiting dungeons.', canvas.width / 2, 200);
+        c.fillText('Every round, choose one of 2 dungeons to play.', canvas.width / 2, 230);
+        c.fillText('There of two dungeons. Each one earns you different points.', canvas.width / 2, 260);
+        c.fillText('Be careful: One of the two dungeons may lose you points.', canvas.width / 2, 310);
+        c.fillText('To maximize points, find the better of the two dungeons to play.', canvas.width / 2, 340);
+        c.fillText('Press ENTER to continue.', canvas.width / 2, 390);
+
+        // Display gameplay image 1
+        // const img = nfvfrew Image();
+        // img.src = 'path_to_gameplay_image_1.png';
+        // img.onload = () => {
+        //     c.drawImage(img, canvas.width / 2 - img.width / 2, 300);
+        // };
+
+    } else if (currentScreen === 2) {
+        c.font = '24px Arial';
+        c.fillText('NAVIGATION:', canvas.width / 2, 160);
+        c.fillText('Use LEFT and RIGHT arrow keys to move your player.', canvas.width / 2, 200);
+        c.fillText('Press UP arrow key to enter a door or escape a dungeon.', canvas.width / 2, 230);
+        c.fillText('Good luck! Your adventure begins now.', canvas.width / 2, 260);
+        c.fillText('Press ENTER to start the game.', canvas.width / 2, 310);
+
+        // Display gameplay image 2
+        // const img = new Image();
+        // img.src = 'path_to_gameplay_image_2.png';
+        // img.onload = () => {
+        //     this.c.drawImage(img, this.canvas.width / 2 - img.width / 2, 320);
+        // };
+    }
+}
+
+function startGame() {
+    // Clear the canvas and start game loop
+    c.clearRect(0, 0, canvas.width, canvas.height);
+    maps[level].init();
+    animate();
+}
 
 // Updates and animates the game frame by frame
 function animate() {
