@@ -1,5 +1,13 @@
-function handleInstructionKeys(e) {
-    if (e.key === 'Enter') {
+function bindEventListeners() {
+    window.addEventListener('keydown', (e) => this.handleInstructionsKeys(e));
+    window.addEventListener('keydown', (e) => this.handleGameKeyDown(e));
+    window.addEventListener('keyup', (e) => this.handleGameKeyUp(e));
+}
+
+function handleInstructionsKeys(event) {
+    if (gameStarted) return;
+
+    if (event.key === 'Enter') {
         currentScreen++;
         if (currentScreen <= totalScreens);
             displayInstructions();
@@ -7,48 +15,17 @@ function handleInstructionKeys(e) {
         gameStarted = true;
         startGame();
     }
-};
-window.addEventListener('keydown', (e) => this.handleInstructionKeys(e));
+}
 
-window.addEventListener('keydown', (event) => {
+function handleGameKeyDown(event) {
     if (!gameStarted || player.preventInput) return;
-    // if (player.preventInput) return
+    
     switch (event.key) {
         case 'ArrowLeft':
             keys.ArrowLeft.pressed = true
-            // if (exit !== 0) { // if there's an exit
-            //     if ( // if player runs into ESCAPE/EXIT door
-            //         player.position.x + player.displayWidth <= exit.position.x + exit.displayWidth && // right side of player hits right side of collision block
-            //         player.position.x + player.displayWidth/2 >= exit.position.x && // left side of player hits left side of collision
-            //         player.position.y + player.displayHeight >= exit.position.y && // bottom of player hits collision block
-            //         player.position.y <= exit.position.y + exit.displayHeight // top of player hits collision block) {
-            //     ) {
-            //         player.velocity.x = 0 // this doesn't work
-            //         player.velocity.y = 0 // this doesn't work
-            //         player.preventInput = true // this doesn't work
-            //         level = 0 // set level back to home
-            //         player.enterLevel(level) // enter home screen
-            //         break
-            //     }
-            // }
             break
         case 'ArrowRight':
             keys.ArrowRight.pressed = true
-            // if (exit !== 0) { // if there's an exit
-            //     if ( // if player runs into ESCAPE/EXIT door
-            //         player.position.x + player.displayWidth <= exit.position.x + exit.displayWidth && // right side of player hits right side of collision block
-            //         player.position.x + player.displayWidth/2 >= exit.position.x && // left side of player hits left side of collision
-            //         player.position.y + player.displayHeight >= exit.position.y && // bottom of player hits collision block
-            //         player.position.y <= exit.position.y + exit.displayHeight // top of player hits collision block) {
-            //     ) {
-            //         player.velocity.x = 0 // this doesn't work
-            //         player.velocity.y = 0 // this doesn't work
-            //         player.preventInput = true // this doesn't work
-            //         level = 0 // set level back to home
-            //         player.enterLevel(level) // enter home screen
-            //         break
-            //     }
-            // }
             break
         case 'ArrowUp': 
             if (currentMap.exit) { // if there's an exit
@@ -58,8 +35,6 @@ window.addEventListener('keydown', (event) => {
                     player.position.y + player.displayHeight >= currentMap.exit.position.y && // bottom of player hits collision block
                     player.position.y <= currentMap.exit.position.y + currentMap.exit.displayHeight // top of player hits collision block) {
                 ) {
-                    // player.velocity.x = 0 // this doesn't work if jumping is enabled
-                    // player.velocity.y = 0 // this doesn't work if jumping is enabled
                     player.preventInput = true // TODO: debug
                     level = 0 // set level back to home
                     player.enterLevel(level) // enter home screen
@@ -73,8 +48,6 @@ window.addEventListener('keydown', (event) => {
             for (let i = 0; i < currentMap.entrances.length; i++) {
                 const entrance = currentMap.entrances[i]
                 if (
-                    // player.position.x + player.displayWidth <= entrance.position.x + entrance.displayWidth && // right side of player hits right side of collision block
-                    // player.position.x >= entrance.position.x && // left side of player hits left side of collision
                     // make it easier to enter doors
                     player.position.x <= entrance.position.x + entrance.displayWidth && // right side of player hits right side of collision block
                     player.position.x + player.displayWidth >= entrance.position.x && // left side of player hits left side of collision
@@ -94,9 +67,8 @@ window.addEventListener('keydown', (event) => {
                         dashboard.updatePoints(50)
                     } else {
                         dashboard.updatePoints(100)
-                    }
-                    // setTimeout(player.enterLevel, 1000, level) // this makes the input permanently true
-                    break // this break doesn't stop player from jumping to enter dungeon
+                    }                    
+                    break
                 }
             }
             
@@ -111,26 +83,23 @@ window.addEventListener('keydown', (event) => {
                     // teleport player to the other door
                     player.velocity.x = 0 // stops player from moving when entering door
                     player.velocity.y = 0 // stops player from moving when entering door
-                    player.preventInput = true // // this works, stops player movement when entering door
-                    player.switchSprite('emergeFromPortal') // TODO: fix, doesn't work
+                    player.preventInput = true // stops player movement when entering door
+                    player.switchSprite('emergeFromPortal') // TODO: fix later
                     door.play()
                     player.teleport(i)
                     if (currentMap === dungeon2) {
                         dashboard.updatePoints(-50)
                     }
-                    break // prevents player from jumping up when inside a door frame, 
-                            // ...but doesn't stop player from jumping whenup when inside an entrance door?
+                    break 
                 }
             }
-            // jumping motion 
-            // if (player.velocity.y === 0) player.velocity.y = -20
             break
     }
-})
+}
 
-window.addEventListener('keyup', (event) => {
-    // if (gameStarted = false) return
-    // if (player.preventInput) return
+function handleGameKeyUp(event) {
+    if (!gameStarted || player.preventInput) return;
+
     switch (event.key) {
         case 'ArrowLeft':
             keys.ArrowLeft.pressed = false // stop moving player if key up
@@ -138,12 +107,8 @@ window.addEventListener('keyup', (event) => {
         case 'ArrowRight':
             keys.ArrowRight.pressed = false // stop moving player if key up
             break
-        // case 'ArrowUp':
-        //     console.log("i pressed UP")
-        //     keys.ArrowUp.pressed = false // stop moving player if key up
-        //     break
     }
-})
+}
 
 // function bindEventListeners(game) {
 //     window.addEventListener('keydown', (e) => this.handleInstructionsKeyPress(e, game));

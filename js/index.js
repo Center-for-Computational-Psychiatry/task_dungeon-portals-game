@@ -32,6 +32,7 @@ let currentScreen = 0 // keeps track of instruction screen to display
 const totalScreens = 3 // total number of instruction screens
 let gameStarted = false
 displayInstructions()
+bindEventListeners()
 
 
 function displayInstructions() {
@@ -87,8 +88,8 @@ function displayInstructions() {
 }
 
 function startGame() {
-    // Clear the canvas and start game loop
-    c.clearRect(0, 0, canvas.width, canvas.height);
+    // Start game loop
+    // c.clearRect(0, 0, canvas.width, canvas.height);
     maps[level].init();
     animate();
 }
