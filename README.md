@@ -9,7 +9,8 @@ The player is presented with two options in the game:
 - **Option A:** High reward, high cost - always results in a net negative point balance.
 
 - **Option B:** Moderate reward, no cost - always results in a net positive point balance.
-The gameplay is designed to assess the player's ability to accurately model both complex-deterministic and simple-deterministic environments, and to make the rational choice to maximize game rewards. Deviations from expected HC behavior may indicate an inability to correctly model gameplay.
+
+The game is designed to assess the player's ability to accurately model both complex-deterministic and simple-deterministic environments, and to make the rational choice to maximize game rewards. Deviations from expected HC behavior may indicate an inability to correctly model gameplay.
 
 A correlation between irrational behavioral choices and the presence of behavioral compulsions may suggest that an inability to correctly model complex environments underlies behavioral compulsions in clinical populations.
 
