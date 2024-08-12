@@ -1,7 +1,11 @@
 class Player extends Sprite {
-    constructor(position, imageSrc, scale, frameRate, frameBuffer, animations, loop, collisionBlocks = []) {
+    constructor(position, imageSrc, scale, frameRate, frameBuffer, animations, loop) {
         super(position, imageSrc, scale, frameRate, frameBuffer, animations, loop) // pass these to Sprite class
-        this.collisionBlocks = collisionBlocks
+    // constructor(game, attributes) {
+    //     super(attributes) // pass these to Sprite class
+        // this.game = game;
+        // this.collisionBlocks = collisionBlocks
+        // this.collisionBlocks = []
         this.velocity = {
             x: 0,
             y: 0
@@ -11,7 +15,9 @@ class Player extends Sprite {
     }
 
     update(collisionBlocks) {
+        // console.log("updating and checking collisions")
         this.position.x += this.velocity.x // update x position based on velocity
+        // console.log(this.position.x)
         this.checkHorizontalCollisions(collisionBlocks)
         this.applyGravity()
         this.checkVerticalCollisions(collisionBlocks)
@@ -62,13 +68,30 @@ class Player extends Sprite {
                 maps[level].init()
                 console.log('completed animation')
                 console.log("switching to emerge")
-                player.switchSprite('emergeFromPortal') // this doesn't show up when prevent input is set to false in this block
+                this.switchSprite('emergeFromPortal') // this doesn't show up when prevent input is set to false in this block
                 this.lastDirection = 'right' // keep sprite on right idle
                 this.preventInput = false // this happens before the emerging can show
                 // console.log(this.preventInput) // this is correctly set to false but switches somehow
             }
         })
     }
+    // enterLevel(level) {
+    //     gsap.to(overlay, {
+    //         opacity: 1,
+    //         onComplete: () => {
+    //             gsap.to(overlay, {
+    //                 opacity: 0,
+    //             })
+    //             game.maps[level].init()
+    //             console.log('completed animation')
+    //             console.log("switching to emerge")
+    //             this.switchSprite('emergeFromPortal') // this doesn't show up when prevent input is set to false in this block
+    //             this.lastDirection = 'right' // keep sprite on right idle
+    //             this.preventInput = false // this happens before the emerging can show
+    //             // console.log(this.preventInput) // this is correctly set to false but switches somehow
+    //         }
+    //     })
+    // }
     
     checkHorizontalCollisions(collisionBlocks) {
         for (let i = 0; i < collisionBlocks.length; i++) {
@@ -160,4 +183,33 @@ class Player extends Sprite {
         })
 
     }
+    // teleport(entryIndex) {
+    //     // this.switchSprite('enterPortal')
+        
+    //     gsap.to(overlay, { // manages timing of animations
+    //         opacity: 0,
+    //         onComplete: () => {
+    //             gsap.to(overlay, {
+    //                 opacity: 0,
+    //             })
+    //             let destinationIndex = game.currentMap.portalMap[entryIndex+1] - 1 // account for indices from 0
+    //             let destinationDoor = game.currentMap.doors[destinationIndex]
+    //             destinationDoor.play()
+    //             let final_x = destinationDoor.position.x + destinationDoor.displayWidth * 0.25 // move to the middle of the destination door
+    //             let final_y = destinationDoor.position.y + destinationDoor.displayHeight - this.displayHeight // move to the ground of the destination door (still jumpy display)
+    //             // setTimeout(function() { // doesn't know what "this" is when inside setTimeout
+    //                 this.position.x = final_x
+    //                 this.position.y = final_y
+    //             // }, 1000)
+                
+    //             this.switchSprite('idleRight')
+    //             // this.switchSprite('emergeFromPortal') // this gets overwritten
+    //             this.preventInput = false
+    //             console.log("switching portals")
+    //                 // this.lastDirection = 'right' // keep sprite on right idle
+                
+    //         }
+    //     })
+
+    // }
 }
