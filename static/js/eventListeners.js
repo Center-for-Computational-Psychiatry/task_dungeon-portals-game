@@ -1,24 +1,31 @@
 function bindEventListeners() {
-    window.addEventListener('keydown', (e) => this.handleInstructionsKeys(e));
-    window.addEventListener('keydown', (e) => this.handleGameKeyDown(e));
-    window.addEventListener('keyup', (e) => this.handleGameKeyUp(e));
+    window.addEventListener('keydown', (e) => handleKeyDown(e));
+    window.addEventListener('keyup', (e) => handleKeyUp(e));
+}
+
+function handleKeyDown(event) {
+    if (!gameStarted) {
+        handleInstructionsKeys(event);
+    } else {
+        handleGameKeyDown(event);
+    }
 }
 
 function handleInstructionsKeys(event) {
-    if (gameStarted) return;
-
     if (event.key === 'Enter') {
         currentScreen++;
-        if (currentScreen <= totalScreens);
+        if (currentScreen <= totalScreens) {
             displayInstructions();
-    } else {
-        gameStarted = true;
-        startGame();
+        } else {
+            gameStarted = true;
+            startGame();
+        }
     }
 }
 
 function handleGameKeyDown(event) {
-    if (!gameStarted || player.preventInput) return;
+    
+    if (player.preventInput) return;
     
     switch (event.key) {
         case 'ArrowLeft':
@@ -28,7 +35,8 @@ function handleGameKeyDown(event) {
             keys.ArrowRight.pressed = true
             break
         case 'ArrowUp': 
-            if (currentMap.exit) { // if there's an exit
+            // if there's an escape door
+            if (currentMap.exit) {
                 if ( // if player is standing in front of dungeon exit
                     player.position.x + player.displayWidth <= currentMap.exit.position.x + currentMap.exit.displayWidth && // right side of player hits right side of collision block
                     player.position.x + player.displayWidth/2 >= currentMap.exit.position.x && // left side of player hits left side of collision
@@ -40,73 +48,82 @@ function handleGameKeyDown(event) {
                     player.enterLevel(level) // enter home screen
                     dashboard.round += 1
                     if (dashboard.round > totalRounds) { endGame() }
-                    break
+                    break;
                 }
             }
-        
+
             // if player is standing in front of a dungeon entrance in home screen
-            for (let i = 0; i < currentMap.entrances.length; i++) {
-                const entrance = currentMap.entrances[i]
-                if (
-                    // make it easier to enter doors
-                    player.position.x <= entrance.position.x + entrance.displayWidth && // right side of player hits right side of collision block
-                    player.position.x + player.displayWidth >= entrance.position.x && // left side of player hits left side of collision
-                    player.position.y + player.displayHeight >= entrance.position.y && // bottom of player hits collision block
-                    player.position.y <= entrance.position.y + entrance.displayHeight // top of player hits collision block) {
-                ) {
-                    player.velocity.x = 0 // this doesn't work
-                    player.velocity.y = 0 // this doesn't work
-                    player.preventInput = true // this doesn't stay when enterlevel sets to false
-                    console.log("this is being called")
-                    level = i+1 // set index to appropriate dungeon number, e.g. entrance 0 = dungeon 1
-                    player.switchSprite('emergeFromPortal') // this works
-                    entrance.play() // this works but doesn't show when player enters level
-                    console.log("entrance door is playing")
-                    player.enterLevel(level)
-                    if (i == 0) {
-                        dashboard.updatePoints(50)
-                    } else {
-                        dashboard.updatePoints(100)
-                    }                    
-                    break
-                }
-            }
-            
-            for (let i = 0; i < currentMap.doors.length; i++) {
-                const door = currentMap.doors[i]
-                if ( // if player is standing in front of a portal door
-                    player.position.x <= door.position.x + door.displayWidth && // right side of player hits right side of collision block
-                    player.position.x + player.displayWidth >= door.position.x && // left side of player hits left side of collision
-                    player.position.y + player.displayHeight >= door.position.y && // bottom of player hits collision block
-                    player.position.y <= door.position.y + door.displayHeight // top of player hits collision block) {
-                ) {
-                    // teleport player to the other door
-                    player.velocity.x = 0 // stops player from moving when entering door
-                    player.velocity.y = 0 // stops player from moving when entering door
-                    player.preventInput = true // stops player movement when entering door
-                    player.switchSprite('emergeFromPortal') // TODO: fix later
-                    door.play()
-                    player.teleport(i)
-                    if (currentMap === dungeon2) {
-                        dashboard.updatePoints(-50)
-                    }
-                    break 
-                }
-            }
+            handleDungeonEntrance();    
+
+            // if player is standing in front of portal entrance in a dungeon
+            handlePortalTravel();
             break
+    }
+
+}
+
+function handleDungeonEntrance() {
+    for (let i = 0; i < currentMap.entrances.length; i++) {
+        const entrance = currentMap.entrances[i]
+        if (
+            // make it easier to enter doors
+            player.position.x <= entrance.position.x + entrance.displayWidth && // right side of player hits right side of collision block
+            player.position.x + player.displayWidth >= entrance.position.x && // left side of player hits left side of collision
+            player.position.y + player.displayHeight >= entrance.position.y && // bottom of player hits collision block
+            player.position.y <= entrance.position.y + entrance.displayHeight // top of player hits collision block) {
+        ) {
+            player.velocity.x = 0 // this doesn't work
+            player.velocity.y = 0 // this doesn't work
+            player.preventInput = true // this doesn't stay when enterlevel sets to false
+            
+            level = i+1 // set index to appropriate dungeon number, e.g. entrance 0 = dungeon 1
+            player.switchSprite('emergeFromPortal') // this works
+            entrance.play() // this works but doesn't show when player enters level
+            
+            player.enterLevel(level)
+            if (i == 0) {
+                dashboard.updatePoints(50)
+            } else {
+                dashboard.updatePoints(100)
+            }                    
+            break
+        }
     }
 }
 
+function handlePortalTravel() {
+    for (let i = 0; i < currentMap.doors.length; i++) {
+        const door = currentMap.doors[i]
+        if ( // if player is standing in front of a portal door
+            player.position.x <= door.position.x + door.displayWidth && // right side of player hits right side of collision block
+            player.position.x + player.displayWidth >= door.position.x && // left side of player hits left side of collision
+            player.position.y + player.displayHeight >= door.position.y && // bottom of player hits collision block
+            player.position.y <= door.position.y + door.displayHeight // top of player hits collision block) {
+        ) {
+            // teleport player to the other door
+            player.velocity.x = 0 // stops player from moving when entering door
+            player.velocity.y = 0 // stops player from moving when entering door
+            player.preventInput = true // stops player movement when entering door
+            player.switchSprite('emergeFromPortal') // TODO: fix later
+            door.play()
+            player.teleport(i)
+            if (currentMap === dungeon2) {
+                dashboard.updatePoints(-50)
+            }
+            break 
+        }
+    }
+}
 function handleGameKeyUp(event) {
     if (!gameStarted || player.preventInput) return;
 
     switch (event.key) {
         case 'ArrowLeft':
-            keys.ArrowLeft.pressed = false // stop moving player if key up
-            break
+            keys.ArrowLeft.pressed = false; // stop moving player if key up
+            break;
         case 'ArrowRight':
-            keys.ArrowRight.pressed = false // stop moving player if key up
-            break
+            keys.ArrowRight.pressed = false; // stop moving player if key up
+            break;
     }
 }
 

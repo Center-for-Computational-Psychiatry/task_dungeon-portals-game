@@ -66,8 +66,6 @@ class Player extends Sprite {
                     opacity: 0,
                 })
                 maps[level].init()
-                console.log('completed animation')
-                console.log("switching to emerge")
                 this.switchSprite('emergeFromPortal') // this doesn't show up when prevent input is set to false in this block
                 this.lastDirection = 'right' // keep sprite on right idle
                 this.preventInput = false // this happens before the emerging can show
@@ -176,7 +174,7 @@ class Player extends Sprite {
                 this.switchSprite('idleRight')
                 // this.switchSprite('emergeFromPortal') // this gets overwritten
                 this.preventInput = false
-                console.log("switching portals")
+                
                     // this.lastDirection = 'right' // keep sprite on right idle
                 
             }

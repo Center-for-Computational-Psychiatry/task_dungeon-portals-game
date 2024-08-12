@@ -32,7 +32,7 @@ let currentScreen = 0 // keeps track of instruction screen to display
 const totalScreens = 3 // total number of instruction screens
 let gameStarted = false
 displayInstructions()
-bindEventListeners()
+window.addEventListener('keydown', (e) => handleInstructionsKeys(e));
 
 
 function displayInstructions() {
@@ -92,6 +92,7 @@ function startGame() {
     // c.clearRect(0, 0, canvas.width, canvas.height);
     maps[level].init();
     animate();
+    bindEventListeners();
 }
 
 // Updates and animates the game frame by frame

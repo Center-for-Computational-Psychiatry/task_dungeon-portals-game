@@ -15,6 +15,7 @@ const simplePortalMap2 = {11: 5, 5: 11, 12: 9, 9: 12, 2: 8, 8: 2, 1: 10, 10: 1, 
 const complexPortalMap1 = {18: 12, 12: 18, 11: 15, 15: 11, 7: 8, 8: 7, 16: 3, 3: 16, 4: 5, 5: 4, 13: 17, 17: 13, 1: 9, 9: 1, 2: 6, 6: 2, 14: 10, 10: 14}
 const complexPortalMap2 = {12: 6, 6: 12, 2: 13, 13: 2, 5: 4, 4: 5, 10: 16, 16: 10, 9: 8, 8: 9, 14: 17, 17: 14, 18: 1, 1: 18, 15: 7, 7: 15, 3: 11, 11: 3}
 
+
 // PLAYER STARTING POSITIONS
 // Home screen positions
 const homePosition = { 

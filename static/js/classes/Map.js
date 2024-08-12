@@ -50,7 +50,7 @@ class Map {
                         x: x_position,
                         y: y_position
                     }, 
-                    imageSrc: './img/doorOpen.png',
+                    imageSrc: imageUrls.doorOpening,
                     scale: door_scale,
                     frameRate: 5,
                     frameBuffer: 10,
@@ -74,7 +74,7 @@ class Map {
                 // y: 64 * 8 // for 4 stories
                 y: 64 * 11 // for 6 stories
             }, 
-            imageSrc: './img/escape.png',
+            imageSrc: imageUrls.escape,
             scale: 1/7.8,
             loop: false 
         });
@@ -87,7 +87,7 @@ class Map {
                         x: x_position,
                         y: y_position
                     }, 
-                    imageSrc: './img/doorOpen.png',
+                    imageSrc: imageUrls.doorOpening,
                     scale: door_scale,
                     frameRate: 5,
                     frameBuffer: 10,
