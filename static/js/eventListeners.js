@@ -24,7 +24,7 @@ function handleInstructionsKeys(event) {
 }
 
 function handleGameKeyDown(event) {
-    
+
     if (player.preventInput) return;
     
     switch (event.key) {
@@ -114,8 +114,8 @@ function handlePortalTravel() {
         }
     }
 }
-function handleGameKeyUp(event) {
-    if (!gameStarted || player.preventInput) return;
+function handleKeyUp(event) {
+    if (!gameStarted) return;
 
     switch (event.key) {
         case 'ArrowLeft':
