@@ -10,6 +10,9 @@ let gameInitialized = false;
 const totalRounds = 2
 let maps
 let currentMap
+let homeDisplay
+let dungeon1
+let dungeon2
 let level = 0 // start on home map, e.g. maps[0]
 // Setup player, game dashboard
 const player = new Player(playerAttributes)
@@ -45,9 +48,9 @@ Promise.all([portalMap1Promise, portalMap2Promise])
             console.log("portal maps are loaded")
             gameInitialized = true;
             // Initialize game with the two portal maps
-            const homeDisplay = new Map('home', 'white');
-            const dungeon1 = new Map('dungeon', 'purple', complexPortalMap1);
-            const dungeon2 = new Map('dungeon', 'teal', complexPortalMap2);
+            homeDisplay = new Map('home', 'white');
+            dungeon1 = new Map('dungeon', 'purple', complexPortalMap1, 0);
+            dungeon2 = new Map('dungeon', 'teal', complexPortalMap2, 50);
             maps = [homeDisplay, dungeon1, dungeon2];
             currentMap = maps[0];
 

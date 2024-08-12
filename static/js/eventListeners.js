@@ -107,9 +107,11 @@ function handlePortalTravel() {
             player.switchSprite('emergeFromPortal') // TODO: fix later
             door.play()
             player.teleport(i)
-            if (currentMap === dungeon2) {
-                dashboard.updatePoints(-50)
-            }
+            // if (currentMap === dungeon2) {
+            //     dashboard.updatePoints(-50)
+            // }
+            dashboard.updatePoints(-currentMap.pointLoss)
+            
             break 
         }
     }

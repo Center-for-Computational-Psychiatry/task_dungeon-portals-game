@@ -1,6 +1,6 @@
 class Map {
     // constructor(game, type, color, portalMap={}) {
-    constructor(type, color, portalMap={}) {
+    constructor(type, color, portalMap={}, pointLoss=0) {
         // this.game = game;
         this.type = type; // 'home' or 'dungeon'
         this.color = color;
@@ -8,6 +8,8 @@ class Map {
         this.entrances = [];
         this.doors = [];
         this.exit = null;
+        this.pointLoss = pointLoss;
+        
         if (this.type == 'home') {
             this.width = homeWidth
             this.height = homeHeight
