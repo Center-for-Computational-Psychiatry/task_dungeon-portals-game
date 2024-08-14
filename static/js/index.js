@@ -118,6 +118,7 @@ function displayInstructions() {
 
 // Start the game after displaying instructions
 function startGame() {
+    console.log("starting game")
     if (gameInitialized) {
         maps[level].init();
         animate();
@@ -171,9 +172,25 @@ function resetDoors() {
 }
 
 function endGame() {
-
+    exportAndDownloadCSV();
 }
 
+
+// Function to export CSV and initiate download
+function exportAndDownloadCSV() {
+    fetch('/export-csv', { method: 'GET' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                console.log(data.message);
+                // Initiate download of the CSV file
+                window.location.href = '/download-csv';
+            } else {
+                console.error(data.error);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
 
 // for calling Game class when there is one
 // const game = new Game(homeWidth, homeHeight);

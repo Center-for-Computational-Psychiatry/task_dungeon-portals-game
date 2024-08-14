@@ -14,7 +14,8 @@ function handleKeyDown(event) {
 function handleInstructionsKeys(event) {
     if (event.key === 'Enter') {
         currentScreen++;
-        if (currentScreen <= totalScreens) {
+        console.log("current Screen: " + currentScreen)
+        if (currentScreen <= totalScreens-1) {
             displayInstructions();
         } else {
             gameStarted = true;
@@ -128,6 +129,14 @@ function handleKeyUp(event) {
             break;
     }
 }
+
+// Export CSV of user data if user exits browser window
+window.addEventListener('beforeunload', (event) => {
+    exportAndDownloadCSV();
+});
+
+
+
 
 // function bindEventListeners(game) {
 //     window.addEventListener('keydown', (e) => this.handleInstructionsKeyPress(e, game));
