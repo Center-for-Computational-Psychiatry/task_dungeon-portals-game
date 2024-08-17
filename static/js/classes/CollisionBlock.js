@@ -1,13 +1,13 @@
-class CollisionBlock {
-    constructor({position}) {
+export class CollisionBlock {
+    constructor({ position }) {
         // this.game = game
         this.position = position
         this.width = 64
         this.height = 64
 
     }
-    draw(){
-        c.fillStyle = 'rgba(100, 100, 100, 0.5)' // red but 50% opacity
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    draw(context) {
+        context.fillStyle = 'rgba(100, 100, 100, 0.5)' // red but 50% opacity
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }

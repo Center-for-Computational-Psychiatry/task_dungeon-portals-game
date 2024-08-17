@@ -1,14 +1,14 @@
-class Sprite {
+export class Sprite {
     constructor({
-        position, 
-        imageSrc, 
-        scale = 1, 
-        frameRate = 1, 
+        position,
+        imageSrc,
+        scale = 1,
+        frameRate = 1,
         frameBuffer,
         loop = true,
         autoplay = true,
         animations
-    }) {   
+    }) {
         this.position = position // not reading position, position is undefined
         this.image = new Image()
         this.image.onload = () => {
@@ -29,34 +29,34 @@ class Sprite {
         this.autoplay = autoplay
         this.animations = animations
         // this.currentAnimation.onComplete()
-        
-        
+
+
         if (this.animations) {
             for (let key in this.animations) {
-              const image = new Image()
-              image.src = this.animations[key].imageSrc
-              this.animations[key].image = image
+                const image = new Image()
+                image.src = this.animations[key].imageSrc
+                this.animations[key].image = image
             }
         }
-        
+
     }
-    draw() {
+    draw(context) {
         if (!this.loaded) {
             return
-        } 
-        
+        }
+
         const cropbox = {
             position: {
                 x: this.width * this.currentFrame,
-                y: 0, 
+                y: 0,
             },
             width: this.width, // consider whether should be displayWidth
             height: this.height // consider whether should be displayWidth
         }
-        
-        c.drawImage(
-            this.image, 
-            cropbox.position.x, 
+
+        context.drawImage(
+            this.image,
+            cropbox.position.x,
             cropbox.position.y,
             cropbox.width,
             cropbox.height,
@@ -81,10 +81,10 @@ class Sprite {
     updateFrames() {
         if (!this.autoplay) return
 
-        this.elapsedFrames++        
+        this.elapsedFrames++
 
         if (this.elapsedFrames % this.frameBuffer === 0) { // every time the frame reaches 2...
-            if (this.currentFrame < this.frameRate - 1 ) { // change the image for animated effect
+            if (this.currentFrame < this.frameRate - 1) { // change the image for animated effect
                 this.currentFrame++
             } else if (this.loop) {
                 this.currentFrame = 0
@@ -98,7 +98,7 @@ class Sprite {
                     this.currentAnimation.isActive = true // so that it doesn't run again
                 }
             }
-        } 
+        }
     }
 
 }

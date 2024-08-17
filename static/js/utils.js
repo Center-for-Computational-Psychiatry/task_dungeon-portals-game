@@ -1,3 +1,5 @@
+import { CollisionBlock } from './classes/CollisionBlock.js';
+
 const num_blocks_wide = 12
 
 Array.prototype.parse2D = function(data) {
