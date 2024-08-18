@@ -2,18 +2,23 @@ from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 import pandas as pd
 import os
-
 from portal_maker import PortalMaker
 
 app = Flask(__name__)
 CORS(app)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user:password@localhost/mydatabase'
-# app.config['UPLOAD_FOLDER'] = 'data'
-# db = SQLAlchemy(app)
 
-# Ensure the "data" folder exists
-os.makedirs(app.config['/data'], exist_ok=True)
+# Set configuration values
+app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'data')
+app.config['FLASK_RUN_PORT'] = 5000
+# for production environment
+app.config['FLASK_RUN_HOST'] = '0.0.0.0' 
+app.config['FLASK_DEBUG'] = False
+# for local environment
+# app.config['FLASK_RUN_HOST'] = '127.0.0.1' 
+# app.config['FLASK_DEBUG'] = True
 
+# Create the "data" folder if it doesn't exist
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 @app.route('/')
 def index():
@@ -25,6 +30,9 @@ def get_portal_map():
     portal_map = portal_maker.portal_picker()  # Generate the portal map
     return jsonify(portal_map)
 
+
+if __name__ == '__main__':
+    app.run(host=app.config['FLASK_RUN_HOST'], port=app.config['FLASK_RUN_PORT'], debug=app.config['FLASK_DEBUG'])
 
 
 # class GameSession(db.Model):
@@ -82,12 +90,6 @@ def get_portal_map():
 #         return jsonify({"error": str(e)}), 500
 
 
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
 
 # @app.route('/api/data', methods=['GET', 'POST'])
 # def handle_data():
