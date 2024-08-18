@@ -1,10 +1,10 @@
 import { Map } from '../classes/Map.js';
+import { Sprite } from '../classes/Sprite.js';
 import { Player } from '../classes/Player.js';
 import { GameTracker } from '../classes/GameTracker.js';
-import * as gameModule from '../index.js';
-import { Sprite } from '../classes/Sprite.js';
-import { CollisionBlock } from '../classes/CollisionBlock.js';
 import { Dashboard } from '../classes/Dashboard.js';
+import { CollisionBlock } from '../classes/CollisionBlock.js';
+import * as gameModule from '../index.js';
 
 describe('Game Integration', () => {
     let map, player, gameTracker, sprite, collisionBlock, dashboard;
