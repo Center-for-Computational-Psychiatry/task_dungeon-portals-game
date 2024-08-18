@@ -12,7 +12,7 @@ CORS(app)
 # db = SQLAlchemy(app)
 
 # Ensure the "data" folder exists
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+os.makedirs(app.config['/data'], exist_ok=True)
 
 
 @app.route('/')
