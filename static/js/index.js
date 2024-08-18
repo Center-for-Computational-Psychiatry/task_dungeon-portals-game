@@ -5,7 +5,6 @@ import { GameTracker } from './classes/GameTracker.js';
 import { playerAttributes } from './data/playerConstants.js';
 import { homeWidth, homeHeight, } from './data/mapConstants.js';
 import { bindEventListeners, handleKeyDown, handleKeyUp } from './eventListeners.js';
-import { currentConfig } from './config.js';
 
 // Setup game canvas
 export const canvas = document.querySelector('canvas')

@@ -19,7 +19,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/config')
-def get_config():
+def get_config_route():
     return jsonify({
         'apiBaseUrl': app.config['API_BASE_URL']
     })
@@ -32,8 +32,11 @@ def get_portal_map():
 
 
 if __name__ == '__main__':
-    app.run(host=app.config['FLASK_RUN_HOST'], port=app.config['FLASK_RUN_PORT'], debug=app.config['FLASK_DEBUG'])
-
+    app.run(
+        host=app.config['FLASK_RUN_HOST'], 
+        port=app.config['FLASK_RUN_PORT'], 
+        debug=app.config['FLASK_DEBUG']
+    )
 
 # class GameSession(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
