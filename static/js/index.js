@@ -5,6 +5,7 @@ import { GameTracker } from './classes/GameTracker.js';
 import { playerAttributes } from './data/playerConstants.js';
 import { homeWidth, homeHeight, } from './data/mapConstants.js';
 import { bindEventListeners, handleKeyDown, handleKeyUp } from './eventListeners.js';
+import { config } from './config.js';
 
 // Setup game canvas
 export const canvas = document.querySelector('canvas')
@@ -60,7 +61,8 @@ export function incrementCurrentScreen() {
 
 // Fetch portal maps from Flask server
 function fetchPortalMap() {
-    return fetch('http://localhost:5000/portal_map')
+    // return fetch(`${config.apiBaseUrl}/portal_map`)
+    return fetch(`${config.apiBaseUrl}/portal_map`)
         .then(response => response.json())
         .catch(error => {
             console.error('Error fetching portal map:', error);
