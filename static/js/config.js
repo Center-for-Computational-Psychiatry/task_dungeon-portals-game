@@ -10,4 +10,5 @@ const config = {
     // Add more environments as needed
 };
 
-export default config[ENV];
+// Export the selected environment's configuration
+export const currentConfig = config[ENV];
