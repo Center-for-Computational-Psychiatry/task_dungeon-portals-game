@@ -12,7 +12,7 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     FLASK_DEBUG = False
-    FLASK_RUN_HOST = 'https://dungeons-and-portals.onrender.com/'
+    FLASK_RUN_HOST = '0.0.0.0'
     API_BASE_URL = 'https://dungeons-and-portals.onrender.com/'
 
 # Dictionary to map environment names to configurations

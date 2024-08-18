@@ -32,9 +32,11 @@ def get_portal_map():
 
 
 if __name__ == '__main__':
+    # Set port based on production port or default
+    port = int(os.environ.get('PORT', app.config['FLASK_RUN_PORT']))
     app.run(
-        host=app.config['FLASK_RUN_HOST'], 
-        port=app.config['FLASK_RUN_PORT'], 
+        host=app.config['FLASK_RUN_HOST'],
+        port=port,
         debug=app.config['FLASK_DEBUG']
     )
 
