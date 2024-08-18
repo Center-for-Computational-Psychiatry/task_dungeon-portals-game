@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 import os
 
@@ -8,9 +7,9 @@ from portal_maker import PortalMaker
 
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user:password@localhost/mydatabase'
-app.config['UPLOAD_FOLDER'] = 'data'
-db = SQLAlchemy(app)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user:password@localhost/mydatabase'
+# app.config['UPLOAD_FOLDER'] = 'data'
+# db = SQLAlchemy(app)
 
 # Ensure the "data" folder exists
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
