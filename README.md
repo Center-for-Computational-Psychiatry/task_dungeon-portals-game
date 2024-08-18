@@ -23,19 +23,19 @@ This is followed by a set of practice rounds to familiarize the player with the 
 
 ### Main Gameplay:
 
-- The game begins on the Home Screen, where the player chooses to enter one of two rooms.
-- Unknown to the player, these rooms correspond to Option A (high reward, high cost) and Option B (moderate reward, no cost).
-- Upon entering a room, the player earns a certain number of points.
-- Each room contains portals, with the goal of finding a way to the "escape" door.
-- The player navigates through these portals, which teleport them to different sections of the room, until they reach the escape door.
-- Depending on whether the room represents Option A or B, the portals may cause the player to lose points.
-- Once the player escapes the room, they return to the Home Screen to make another choice.
+- The game begins on the Home Screen, where the player chooses to enter one of two dungeons.
+- Unknown to the player, these dungeons correspond to Option A (high reward, high cost) and Option B (moderate reward, no cost).
+- Upon entering a dungeon, the player earns a certain number of points.
+- Each dungeon contains portals, with the goal of finding a way to the "escape" door.
+- The player navigates through these portals, which teleport them to different sections of the dungeon, until they reach the escape door.
+- Depending on whether the dungeon represents Option A or B, the portals may cause the player to lose points.
+- Once the player escapes the dungeon, they return to the Home Screen to make another choice.
 
 ### Objective:
 
-- Throughout the game, the player monitors their point balance to determine the best room to enter.
+- Throughout the game, the player monitors their point balance to determine the best dungeon to enter.
 - The game consists of a set number of rounds (e.g., 15 rounds total).
-- Over multiple rounds, the player may develop a preference for a particular room.
+- Over multiple rounds, the player may develop a preference for a particular dungeon.
 
 ### Analysis:
 
