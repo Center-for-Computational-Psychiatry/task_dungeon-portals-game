@@ -12,28 +12,27 @@ export const c = canvas.getContext('2d')
 canvas.width = homeWidth
 canvas.height = homeHeight
 export const overlay = { opacity: 0 }
-let complexPortalMap1, complexPortalMap2;
-let gameInitialized = false;
-export let gameEnded = false;
 
 // Setup start of game
-export const totalRounds = 2
+export const totalRounds = 10
 export let level = 0 // start on home map, e.g. maps[0]
 export function setLevel(index) { level = index; }
 export let currentMap
 export let maps
+export let gameEnded = false;
+let gameInitialized = false;
 let homeDisplay
 let dungeon1
 let dungeon2
+let animationId;
 
 // Setup player, game dashboard
 export const player = new Player(playerAttributes)
 export const dashboard = new Dashboard(totalRounds)
 export let keys = {
-    ArrowLeft: { pressed: false },
-    ArrowRight: { pressed: false },
-    ArrowUp: { pressed: false }
+    ArrowLeft: { pressed: false }, ArrowRight: { pressed: false }, ArrowUp: { pressed: false }
 }
+
 // Setup input field for first screen
 export const inputField = {
     x: canvas.width / 2 - 100,
@@ -43,16 +42,23 @@ export const inputField = {
     value: '',
     active: true
 };
-// Setup tracking variables
-export let currentScreen = 0 // keeps track of instruction screen to display
-export function incrementCurrentScreen() { currentScreen++; }
-export let totalScreens = 4 // total number of pre-game screens
-export let gameTracker = new GameTracker(); // GameTracker gets initialized once participant ID is collected
-export let gameStarted = false // false during instructions, true once game has started
-export function setGameStarted(value) { gameStarted = value; }
-export function setCurrentMap(map) { currentMap = map; }
 
-// Function to fetch a portal map from the Flask server
+// Setup tracking variables
+export let currentScreen = 0; // keeps track of instruction screen to display
+export let totalScreens = 4; // total number of pre-game screens
+export let gameStarted = false; // false during instructions, true once game has started
+export let gameSaved = false;
+export let gameTracker = new GameTracker(); // GameTracker gets initialized once participant ID is collected
+export function setCurrentMap(map) { currentMap = map; }
+export function setGameStarted(bool) {
+    gameStarted = bool;
+    gameTracker.trackGameStart();
+}
+export function incrementCurrentScreen() {
+    currentScreen++;
+}
+
+// Fetch portal maps from Flask server
 function fetchPortalMap() {
     return fetch('http://localhost:5000/portal_map')
         .then(response => response.json())
@@ -67,9 +73,9 @@ const portalMap1Promise = fetchPortalMap();
 const portalMap2Promise = fetchPortalMap();
 
 Promise.all([portalMap1Promise, portalMap2Promise])
-    .then(([complexPortalMap1, complexPortalMap2]) => {
-        if (complexPortalMap1 && complexPortalMap2) {
-            initializeGame(complexPortalMap1, complexPortalMap2);
+    .then(([portalMap1, portalMap2]) => {
+        if (portalMap1 && portalMap2) {
+            initializeGame(portalMap1, portalMap2);
         } else {
             console.error('One or both portal maps failed to load.');
         }
@@ -107,7 +113,7 @@ export function displayInstructions() {
         c.fillText('Press ENTER to continue.', canvas.width / 2, 340);
     } else if (currentScreen === 2) {
         c.font = '24px Arial';
-        c.fillText('GAME INSTRUCTIONS:', canvas.width / 2, 160);
+        c.fillText('GAME INSTRUCTIONS', canvas.width / 2, 160);
         c.fillText('Win and lose points from entering and exiting dungeons.', canvas.width / 2, 200);
         c.fillText('Every round, choose one of 2 dungeons to play.', canvas.width / 2, 230);
         c.fillText('There of two dungeons. Each one earns you different points.', canvas.width / 2, 260);
@@ -116,22 +122,15 @@ export function displayInstructions() {
         c.fillText('Press ENTER to continue.', canvas.width / 2, 390);
     } else if (currentScreen === 3) {
         c.font = '24px Arial';
-        c.fillText('NAVIGATION:', canvas.width / 2, 160);
+        c.fillText('NAVIGATION', canvas.width / 2, 160);
         c.fillText('Use LEFT and RIGHT arrow keys to move your player.', canvas.width / 2, 200);
         c.fillText('Press UP arrow key to enter a door or escape a dungeon.', canvas.width / 2, 230);
         c.fillText('Good luck! Your adventure begins now.', canvas.width / 2, 260);
         c.fillText('Press ENTER to start the game.', canvas.width / 2, 310);
-        // Display gameplay image
-        // const img = new Image();
-        // img.src = 'path_to_gameplay_image_2.png';
-        // img.onload = () => {
-        //     this.c.drawImage(img, this.canvas.width / 2 - img.width / 2, 320);
-        // };
     }
 }
 
 export function drawParticipantIDField() {
-    console.log("currentScreen: " + currentScreen)
     c.clearRect(0, 0, canvas.width, canvas.height);
     // Draw input field
     c.fillStyle = 'white';
@@ -150,8 +149,8 @@ export function drawParticipantIDField() {
 
 // Start the game after displaying instructions
 export function startGame() {
-    console.log("starting game")
     if (gameInitialized && !gameEnded) {
+        console.log("Starting game")
         maps[level].init();
         animate();
     } else if (gameEnded) {
@@ -162,11 +161,8 @@ export function startGame() {
 }
 
 // Updates and animates the game frame by frame
-let animationId;
 function animate() {
-    console.log("calling animate")
     if (gameEnded) {
-        console.log("cancelling animation frame")
         cancelAnimationFrame(animationId);
         return;
     }
@@ -202,7 +198,7 @@ function animate() {
 }
 
 function resetDoors() {
-    // If a door was open for teleportation, close the door
+    // If a portal was open for teleportation, close the portal
     for (let i = 0; i < currentMap.doors.length; i++) {
         const door = currentMap.doors[i]
         if (door.autoplay && door.currentFrame === door.frameRate - 1) {
@@ -210,12 +206,6 @@ function resetDoors() {
             player.preventInput = false
         }
     }
-}
-
-export function saveGameData() {
-    console.log("saving gametracker data")
-    gameTracker.exportToCSV();
-    gameTracker.saveToDatabase();
 }
 
 export function endGame() {
@@ -242,9 +232,8 @@ export function endGame() {
 
 }
 
-
-
-
-// for calling Game class when there is one
-// const game = new Game(homeWidth, homeHeight);
-// game.init()
+export function saveGameData() {
+    gameTracker.exportToCSV();
+    gameTracker.saveToDatabase();
+    gameSaved = true;
+}

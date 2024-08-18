@@ -2,24 +2,17 @@ import { Sprite } from './Sprite.js';
 
 export class Player extends Sprite {
     constructor(position, imageSrc, scale, frameRate, frameBuffer, animations, loop) {
-        super(position, imageSrc, scale, frameRate, frameBuffer, animations, loop) // pass these to Sprite class
-        // constructor(game, attributes) {
-        //     super(attributes) // pass these to Sprite class
-        // this.game = game;
-        // this.collisionBlocks = collisionBlocks
-        // this.collisionBlocks = []
+        super(position, imageSrc, scale, frameRate, frameBuffer, animations, loop)
         this.velocity = {
             x: 0,
             y: 0
         }
         this.gravity = 1
-        this.preventInput = false // turn true when entering a portal door or exit
+        this.preventInput = false
     }
 
     update(collisionBlocks) {
-        // console.log("updating and checking collisions")
         this.position.x += this.velocity.x // update x position based on velocity
-        // console.log(this.position.x)
         this.checkHorizontalCollisions(collisionBlocks)
         this.applyGravity()
         this.checkVerticalCollisions(collisionBlocks)
@@ -27,7 +20,7 @@ export class Player extends Sprite {
 
     handleInput(keys) {
         // console.log(this.preventInput)
-        if (this.preventInput) return // should not run below code if entering doors/portals
+        if (this.preventInput) return // should not run when entering dungeons or portals
 
         this.velocity.x = 0 // set to zero by default (if pressed = false)
 

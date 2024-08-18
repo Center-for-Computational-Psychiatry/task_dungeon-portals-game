@@ -1,6 +1,5 @@
 export class CollisionBlock {
     constructor({ position }) {
-        // this.game = game
         this.position = position
         this.width = 64
         this.height = 64

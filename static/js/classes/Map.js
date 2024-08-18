@@ -2,16 +2,13 @@ import { Sprite } from './Sprite.js';
 import {
     homeWidth, homeHeight, homePosition, startPosition, home_x_positions, home_y_positions,
     dungeonWidth, dungeonHeight, dungeon_x_positions, dungeon_y_positions, door_scale,
-}
-    from '../data/mapConstants.js';
+} from '../data/mapConstants.js';
 import { homeMapCollisions, dungeonCollisions } from '../data/collisionConstants.js';
 import { canvas, c, player, setCurrentMap, gameEnded } from '../index.js'
 
 export class Map {
-    // constructor(game, type, color, portalMap={}) {
     constructor(type, color, portalMap = {}, pointLoss = 0) {
-        // this.game = game;
-        this.type = type; // 'home' or 'dungeon'
+        this.type = type;
         this.color = color;
         this.portalMap = portalMap;
         this.entrances = [];
@@ -23,7 +20,7 @@ export class Map {
             this.width = homeWidth
             this.height = homeHeight
             this.collisionBlocks = homeMapCollisions.parse2D().createObjectsFrom2D();
-        } else {
+        } else { // dungeon
             this.width = dungeonWidth
             this.height = dungeonHeight
             this.collisionBlocks = dungeonCollisions.parse2D().createObjectsFrom2D();

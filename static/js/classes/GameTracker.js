@@ -2,39 +2,65 @@ export class GameTracker {
     constructor() {
         this.participantId = "";
         this.startTime = new Date(); // Capture the time when the application starts
+        this.currentLocation = "home"; // Start at home
         this.currentRound = 1; // Default starting round
-        this.currentDungeon = "home"; // Start at home
+        this.points = 0;
+        this.pointLoss = 0;
+        this.dungeonPortalMap = {};
+        this.portalEntered = 0;
+        this.portalExited = 0;
         this.events = [];
     }
 
-    trackEvent(eventType, enteredPortal = null, dungeonPortalMap = null) {
-        const timestamp = new Date().toISOString();
-        const eventData = {
-            participantId: this.participantId,
-            startTime: this.startTime.toISOString(), // Include the start time in every row
-            round: this.currentRound,
-            dungeon: this.currentDungeon,
-            event_type: eventType,
-            timestamp: timestamp,
-            enteredPortal: enteredPortal ? enteredPortal : "",
-            dungeonPortalMap: dungeonPortalMap ? dungeonPortalMap : ""
-        };
-        this.events.push(eventData);
-    }
-
-    trackPortalTravel(portal, dungeonPortalMap = null) {
-        this.trackEvent('portal_travel', portal, dungeonPortalMap);
-    }
 
     trackInstructionScreen(screenNumber) {
         this.trackEvent(`instruction_screen_${screenNumber}`);
     }
-
-    updateRoundAndDungeon(round, dungeon) {
-        this.currentRound = round;
-        this.currentDungeon = dungeon;
+    
+    trackGameStart() {
+        this.trackEvent('start_game');
     }
 
+    trackRoundStart(round) {
+        this.currentLocation = "home";
+        this.currentRound = round;
+        this.pointLoss = 0;
+        this.trackEvent('start_round')
+    }
+
+    trackDungeonEntry(dungeon) {
+        this.currentLocation = "dungeon"; 
+        this.pointLoss = dungeon.pointLoss;
+        this.dungeonPortalMap = dungeon.portalMap;
+        this.trackEvent('start_dungeon')
+    }
+
+    trackPortalTravel(portalEntered, portalExited, points) {
+        this.portalEntered = portalEntered;
+        this.portalExited = portalExited;
+        this.points = points;
+        this.trackEvent('portal_travel');
+    }
+
+    trackEvent(eventType) {
+        const timestamp = new Date().toISOString();
+        const eventData = {
+            participantId: this.participantId,
+            startTime: this.startTime.toISOString(), // start time of entire experiment
+            eventType: eventType,
+            timestamp: timestamp, // time of the event
+            round: this.currentRound,
+            location: this.currentLocation,
+            dungeonPortalMap: this.dungeonPortalMap ? this.dungeonPortalMap : "",
+            dungeonPointLoss: this.pointLoss,
+            portalEntered: this.portalEntered ? this.portalEntered : "",
+            portalExited: this.portalExited ? this.portalExited : "",
+            points: this.points
+        };
+        this.events.push(eventData);
+    }
+
+    
     exportToCSV() {
         console.log("starting export to CSV")
         const headers = "participantId,startTime,round,dungeon,event_type,timestamp,enteredPortal,dungeonPortalMap\n";

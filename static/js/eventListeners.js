@@ -1,7 +1,7 @@
 import {
     startGame, saveGameData, player, dashboard, overlay, displayInstructions, drawParticipantIDField, maps,
     currentMap, totalRounds, currentScreen, totalScreens, gameStarted, gameTracker, keys, level, setLevel,
-    incrementCurrentScreen, setGameStarted, inputField, endGame
+    incrementCurrentScreen, setGameStarted, inputField, endGame, gameSaved
 } from './index.js'
 
 export function bindEventListeners() {
@@ -168,6 +168,8 @@ export function handleKeyUp(event) {
 
 // Export CSV of user data if user exits browser window
 window.addEventListener('beforeunload', (event) => {
-    saveGameData();
+    if (!gameSaved) {
+        saveGameData();
+    }
 });
 

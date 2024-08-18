@@ -102,7 +102,6 @@ class PortalMaker():
         return steps_to_solve
 
 
-    
 
 
 
