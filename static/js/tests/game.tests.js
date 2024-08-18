@@ -1,10 +1,10 @@
-import * as gameModule from './index.js';
+import * as gameModule from '../index.js';
 import { jest } from '@jest/globals';
 
-jest.mock('./classes/Map.js');
-jest.mock('./classes/Player.js');
-jest.mock('./classes/Dashboard.js');
-jest.mock('./classes/GameTracker.js');
+jest.mock('../classes/Map.js');
+jest.mock('../classes/Player.js');
+jest.mock('../classes/Dashboard.js');
+jest.mock('../classes/GameTracker.js');
 
 describe('Game Module', () => {
     beforeEach(() => {

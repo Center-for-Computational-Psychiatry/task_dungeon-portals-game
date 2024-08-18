@@ -1,5 +1,5 @@
-import { Map } from './classes/Map.js';
-import { Sprite } from './classes/Sprite.js';
+import { Map } from '../classes/Map.js';
+import { Sprite } from '../classes/Sprite.js';
 
 jest.mock('./Sprite.js');
 

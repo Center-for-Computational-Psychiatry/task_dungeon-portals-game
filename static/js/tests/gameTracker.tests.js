@@ -1,4 +1,4 @@
-import { GameTracker } from './GameTracker.js';
+import { GameTracker } from '../classes/GameTracker.js';
 
 describe('GameTracker', () => {
     let gameTracker;

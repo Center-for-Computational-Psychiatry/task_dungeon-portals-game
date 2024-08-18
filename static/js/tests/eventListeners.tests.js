@@ -1,5 +1,5 @@
-import { bindEventListeners, handleKeyDown, handleKeyUp } from './eventListeners.js';
-import * as gameModule from './index.js';
+import { bindEventListeners, handleKeyDown, handleKeyUp } from '../eventListeners.js';
+import * as gameModule from '../index.js';
 
 jest.mock('./index.js', () => ({
     gameStarted: false,
