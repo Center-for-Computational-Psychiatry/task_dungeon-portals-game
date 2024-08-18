@@ -3,19 +3,13 @@ from flask_cors import CORS
 import pandas as pd
 import os
 from portal_maker import PortalMaker
+from config import get_config
 
 app = Flask(__name__)
 CORS(app)
 
 # Set configuration values
-app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'data')
-app.config['FLASK_RUN_PORT'] = 5000
-# for production environment
-app.config['FLASK_RUN_HOST'] = '0.0.0.0' 
-app.config['FLASK_DEBUG'] = False
-# for local environment
-# app.config['FLASK_RUN_HOST'] = '127.0.0.1' 
-# app.config['FLASK_DEBUG'] = True
+app.config.from_object(get_config())
 
 # Create the "data" folder if it doesn't exist
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -23,6 +17,12 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/config')
+def get_config():
+    return jsonify({
+        'apiBaseUrl': app.config['API_BASE_URL']
+    })
 
 @app.route('/portal_map', methods=['GET'])
 def get_portal_map():

@@ -1,4 +1,4 @@
-const ENV = process.env.NODE_ENV || 'development'; // Default to 'development' if NODE_ENV is not set
+const ENV = window.ENV || 'development'; // Default to 'development' if ENV is not set
 
 const config = {
     development: {
@@ -10,5 +10,4 @@ const config = {
     // Add more environments as needed
 };
 
-// Export the selected environment's configuration
 export const currentConfig = config[ENV];

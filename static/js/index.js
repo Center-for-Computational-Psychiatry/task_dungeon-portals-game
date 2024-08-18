@@ -61,14 +61,28 @@ export function incrementCurrentScreen() {
 
 // Fetch portal maps from Flask server
 function fetchPortalMap() {
-    // return fetch(`${config.apiBaseUrl}/portal_map`)
-    return fetch(`${currentConfig.apiBaseUrl}/portal_map`)
+    return fetch('/config')
+        .then(response => response.json())
+        .then(config => {
+            const apiBaseUrl = config.apiBaseUrl;
+            return fetch(`${apiBaseUrl}/portal_map`);
+        })
         .then(response => response.json())
         .catch(error => {
             console.error('Error fetching portal map:', error);
             return null;
         });
 }
+
+// function fetchPortalMap() {
+//     // return fetch(`${config.apiBaseUrl}/portal_map`)
+//     return fetch(`${currentConfig.apiBaseUrl}/portal_map`)
+//         .then(response => response.json())
+//         .catch(error => {
+//             console.error('Error fetching portal map:', error);
+//             return null;
+//         });
+// }
 
 // Fetch portal maps
 const portalMap1Promise = fetchPortalMap();
