@@ -237,7 +237,7 @@ export function endGame() {
 }
 
 export function saveGameData() {
-    gameTracker.exportToCSV();
-    gameTracker.saveToDatabase();
+    // gameTracker.exportToCSV();
+    // gameTracker.saveToDatabase();
     gameSaved = true;
 }
