@@ -111,7 +111,7 @@ export function displayInstructions() {
         drawParticipantIDField(); // Collect participant ID
     } else if (currentScreen === 1) {
         c.font = '24px Arial';
-        c.fillText('Welcome to the Dungeon Portal Game!', canvas.width / 2, 180);
+        c.fillText('Welcome to the Dungeons & Portals Game!', canvas.width / 2, 180);
         c.fillText('Teleport through portals to explore different platforms in a dungeon.', canvas.width / 2, 230);
         c.fillText('Find a way to escape each dungeon.', canvas.width / 2, 260);
         c.fillText('You will earn money based on the number of points earned in this game.', canvas.width / 2, 290);
