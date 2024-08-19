@@ -1,6 +1,12 @@
+# Dungeons and Portals Game
+
 ## Purpose:
 
-This game is designed to differentiate between clinical populations with behavioral compulsions and healthy control (HC) populations.
+The Dungeons & Portals Game is designed to differentiate between clinical populations with behavioral compulsions and healthy control (HC) populations.
+
+The game tracks the player's ability to accurately model cost-benefit in complex-deterministic environments, and to make rational choices to maximize game rewards. 
+
+Deviations from expected behavior may indicate an inability to correctly model cost-benefit of complex decisions. Correlation between irrational behavioral choices and behavioral compulsions may suggest that the inability to correctly model complex environments underlies behavioral compulsions in clinical populations.
 
 ## Gameplay Overview:
 
@@ -9,10 +15,6 @@ The player is presented with two options in the game:
 - **Option A:** High reward, high cost - always results in a net negative point balance.
 
 - **Option B:** Moderate reward, no cost - always results in a net positive point balance.
-
-The game is designed to assess the player's ability to accurately model complex-deterministic environments, and to make rational choices to maximize game rewards. 
-
-Deviations from expected behavior may indicate an inability to correctly model gameplay. Correlation between irrational behavioral choices and behavioral compulsions may suggest that the inability to correctly model complex environments underlies behavioral compulsions in clinical populations.
 
 ## Description:
 
@@ -39,4 +41,4 @@ This is followed by a set of practice rounds to familiarize the player with the 
 
 ### Analysis:
 
-Player behavior and preferences are computationally modelled discern group-level differences between HC populations and clinical behavioral compulsion groups. 
+Player behavior and preferences are mapped to Bayesian inference models to discern group-level differences between HC populations and clinical behavioral compulsion groups. 
