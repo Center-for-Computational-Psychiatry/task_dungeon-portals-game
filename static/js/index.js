@@ -73,16 +73,6 @@ function fetchPortalMap() {
         });
 }
 
-// function fetchPortalMap() {
-//     // return fetch(`${config.apiBaseUrl}/portal_map`)
-//     return fetch(`${currentConfig.apiBaseUrl}/portal_map`)
-//         .then(response => response.json())
-//         .catch(error => {
-//             console.error('Error fetching portal map:', error);
-//             return null;
-//         });
-// }
-
 // Fetch portal maps
 const portalMap1Promise = fetchPortalMap();
 const portalMap2Promise = fetchPortalMap();
@@ -124,17 +114,16 @@ export function displayInstructions() {
         c.fillText('Welcome to the Dungeon Portal Game!', canvas.width / 2, 180);
         c.fillText('Teleport through portals to explore different platforms in a dungeon.', canvas.width / 2, 230);
         c.fillText('Find a way to escape each dungeon.', canvas.width / 2, 260);
-        c.fillText('You will earn money based on how many points you earn in this game.', canvas.width / 2, 290);
+        c.fillText('You will earn money based on the number of points earned in this game.', canvas.width / 2, 290);
         c.fillText('Press ENTER to continue.', canvas.width / 2, 340);
     } else if (currentScreen === 2) {
         c.font = '24px Arial';
         c.fillText('GAME INSTRUCTIONS', canvas.width / 2, 160);
-        c.fillText('Win and lose points from entering and exiting dungeons.', canvas.width / 2, 200);
+        c.fillText('Win (or lose) points from entering and exiting dungeons.', canvas.width / 2, 200);
         c.fillText('Every round, choose one of 2 dungeons to play.', canvas.width / 2, 230);
-        c.fillText('There of two dungeons. Each one earns you different points.', canvas.width / 2, 260);
-        c.fillText('Be careful: One of the two dungeons may lose you points.', canvas.width / 2, 310);
-        c.fillText('To maximize points, find the better of the two dungeons to play.', canvas.width / 2, 340);
-        c.fillText('Press ENTER to continue.', canvas.width / 2, 390);
+        c.fillText('The two dungeons may earn you different points.', canvas.width / 2, 260);
+        c.fillText('To maximize points, figure out the better dungeon to play.', canvas.width / 2, 290);
+        c.fillText('Press ENTER to continue.', canvas.width / 2, 340);
     } else if (currentScreen === 3) {
         c.font = '24px Arial';
         c.fillText('NAVIGATION', canvas.width / 2, 160);

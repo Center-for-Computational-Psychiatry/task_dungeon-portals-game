@@ -10,15 +10,15 @@ The player is presented with two options in the game:
 
 - **Option B:** Moderate reward, no cost - always results in a net positive point balance.
 
-The game is designed to assess the player's ability to accurately model both complex-deterministic and simple-deterministic environments, and to make the rational choice to maximize game rewards. Deviations from expected HC behavior may indicate an inability to correctly model gameplay.
+The game is designed to assess the player's ability to accurately model complex-deterministic environments, and to make rational choices to maximize game rewards. 
 
-A correlation between irrational behavioral choices and the presence of behavioral compulsions may suggest that an inability to correctly model complex environments underlies behavioral compulsions in clinical populations.
+Deviations from expected behavior may indicate an inability to correctly model gameplay. Correlation between irrational behavioral choices and behavioral compulsions may suggest that the inability to correctly model complex environments underlies behavioral compulsions in clinical populations.
 
 ## Description:
 
 ### Instructions and Practice Rounds:
 
-The player is first guided through a set of written instructions on how to play the game.
+The player is guided through a set of written instructions on how to play the game.
 This is followed by a set of practice rounds to familiarize the player with the mechanics.
 
 ### Main Gameplay:
@@ -34,9 +34,9 @@ This is followed by a set of practice rounds to familiarize the player with the 
 ### Objective:
 
 - Throughout the game, the player monitors their point balance to determine the best dungeon to enter.
-- The game consists of a set number of rounds (e.g., 15 rounds total).
+- The game consists of a set number of rounds (e.g. 10 rounds total).
 - Over multiple rounds, the player may develop a preference for a particular dungeon.
 
 ### Analysis:
 
-This preference is tracked and later analyzed to compare the behavior of HC populations with that of clinical populations.
+Player behavior and preferences are computationally modelled discern group-level differences between HC populations and clinical behavioral compulsion groups. 
