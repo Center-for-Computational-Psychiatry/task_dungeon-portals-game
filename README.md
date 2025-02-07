@@ -42,3 +42,67 @@ This is followed by a set of practice rounds to familiarize the player with the 
 ### Analysis:
 
 Player behavior and preferences are mapped to Bayesian inference models to discern group-level differences between HC populations and clinical behavioral compulsion groups. 
+
+## Deployment using Render
+
+### 1. **Prepare Your Repository**
+Ensure the application has the following Flask files:
+- `app.py` (or your main Flask file)
+- `requirements.txt` (listing all dependencies)
+- Any additional required files (e.g., `templates/`, `static/`)
+
+### 2. **Push to GitHub**
+If your code is not already in a GitHub repository, initialize one and push your changes:
+```sh
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/yourusername/your-repo.git
+git push -u origin main
+```
+
+### 3. **Create a New Web Service on Render**
+1. Go to [[Render Dashboard](https://dashboard.render.com/)](https://dashboard.render.com/).
+2. Click **New Web Service**.
+3. Connect your GitHub repository.
+4. Select your branch (usually `main`).
+
+### 4. **Set Environment Variables**
+1. Go to the **Environment Variables** section.
+2. Add the following variable:
+   ```plaintext
+   Key: FLASK_ENV
+   Value: production
+   ```
+
+### 5. **Configure Build and Start Commands**
+- **Build Command:**
+  ```sh
+  pip install -r requirements.txt
+  ```
+- **Start Command:**
+  ```sh
+  python app.py
+  ```
+
+### 6. **Ensure Flask Binds to the Correct Host and Port**
+Modify `app.py` to use the `PORT` environment variable:
+```python
+import os
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))  # Use Render's assigned port
+    app.run(host="0.0.0.0", port=port, debug=False)
+```
+
+### 7. **Deploy and Test**
+- Click **Deploy** on Render.
+- Wait for the deployment to complete.
+- Once deployed, visit the provided URL to test your Flask app.
+
+### 8. **Troubleshooting**
+If deployment fails, check:
+- Render’s **logs** for errors.
+- The correct **host and port binding** in `app.py`.
+- That **all dependencies** are listed in `requirements.txt`.
